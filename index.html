@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1f6095" />
+  <title>Login - Sistem Absensi Siswa</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-wrap">
+    <section class="auth-card">
+      <div class="brand-mark">A</div>
+      <p class="eyebrow">Platform Teknologi</p>
+      <h1>Sistem Absensi Siswa Berbasis Web</h1>
+      <p class="lead">Aplikasi rancangan untuk mengelola data siswa, guru, kelas, input kehadiran, laporan, dan rekapitulasi absensi sekolah.</p>
+      <form id="loginForm" class="form-grid">
+        <label for="username">Username</label>
+        <input id="username" autocomplete="username" placeholder="contoh: admin" required />
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password" required />
+        <label for="role">Masuk sebagai</label>
+        <select id="role">
+          <option value="Admin">Admin</option>
+          <option value="Guru/Wali Kelas">Guru/Wali Kelas</option>
+          <option value="Kepala Sekolah">Kepala Sekolah</option>
+          <option value="Siswa/Orang Tua">Siswa/Orang Tua</option>
+        </select>
+        <button class="btn primary full" type="submit">Masuk ke Dashboard</button>
+      </form>
+      <p class="hint">Demo: isi username dan password apa saja. Data tersimpan otomatis di browser.</p>
+    </section>
+    <section class="auth-preview" aria-label="Preview tampilan sistem">
+      <div class="device laptop">
+        <div class="mock-top"></div>
+        <div class="mock-body">
+          <div class="mock-sidebar"><span></span><span></span><span></span><span></span></div>
+          <div class="mock-content">
+            <span class="mock-title"></span>
+            <div class="mock-stats"><span></span><span></span><span></span><span></span></div>
+            <div class="mock-table"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="device phone">
+        <div class="phone-line"></div>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/login.js"></script>
+</body>
+</html>

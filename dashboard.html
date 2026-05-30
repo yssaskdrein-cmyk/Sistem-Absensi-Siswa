@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1f6095" />
+  <title>Dashboard - Sistem Absensi Siswa</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark small">A</div>
+        <div><strong>Absensi Web</strong><span>Sekolah</span></div>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn active" data-page="dashboard">Dashboard</button>
+        <button class="nav-btn" data-page="admin">Admin</button>
+        <button class="nav-btn" data-page="siswa">Data Siswa</button>
+        <button class="nav-btn" data-page="guru">Data Guru</button>
+        <button class="nav-btn" data-page="kelas">Data Kelas</button>
+        <button class="nav-btn" data-page="absensi">Input Absensi</button>
+        <button class="nav-btn" data-page="laporan">Laporan</button>
+        <button class="nav-btn" data-page="pengaturan">Pengaturan</button>
+      </nav>
+      <button class="logout" id="logoutBtn">Keluar</button>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <div>
+          <p class="eyebrow">Sistem Absensi Siswa Berbasis Web</p>
+          <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="profile-pill"><span id="roleText">Admin</span><strong id="userText">User</strong></div>
+      </header>
+
+      <main class="content">
+        <section id="page-dashboard" class="page active">
+          <div class="hero-card">
+            <div>
+              <p class="eyebrow">Rancangan Produk Jadi</p>
+              <h2>Manajemen absensi siswa yang cepat, rapi, dan mudah dipantau.</h2>
+              <p>Sistem ini mengikuti struktur rancangan pada artikel: admin mengelola data, guru mengisi absensi, kepala sekolah melihat laporan, dan siswa/orang tua dapat memantau kehadiran.</p>
+            </div>
+            <div class="hero-date"><span id="todayName">Hari ini</span><strong id="todayDate"></strong></div>
+          </div>
+          <div class="stats-grid" id="statsGrid"></div>
+          <div class="dashboard-grid single">
+            <article class="panel">
+              <div class="panel-head"><h3>Aktivitas Terbaru</h3></div>
+              <div id="recentActivity" class="activity-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="page-admin" class="page">
+          <div class="section-head">
+            <div><p class="eyebrow">Halaman Admin</p><h2>Tambah Data Siswa</h2></div>
+            <button class="btn secondary" id="resetStudentForm">Kosongkan Form</button>
+          </div>
+          <div class="admin-grid">
+            <article class="panel form-panel">
+              <h3>Form Tambah Nama/Data Siswa</h3>
+              <p class="muted-text">Admin dapat menambahkan siswa baru. Data yang disimpan otomatis masuk ke menu Data Siswa, Input Absensi, dan Laporan.</p>
+              <form id="adminStudentForm" class="inline-form">
+                <input type="hidden" id="adminStudentEdit" />
+                <label>NISN</label>
+                <input id="adminStudentNisn" placeholder="Contoh: 010009" required />
+                <label>Nama Siswa</label>
+                <input id="adminStudentName" placeholder="Masukkan nama lengkap siswa" required />
+                <label>Kelas</label>
+                <select id="adminStudentClass" required></select>
+                <label>Jenis Kelamin</label>
+                <select id="adminStudentGender"><option>Laki-laki</option><option>Perempuan</option></select>
+                <label>Alamat</label>
+                <textarea id="adminStudentAddress" placeholder="Alamat siswa" required></textarea>
+                <button class="btn primary full" type="submit" id="adminStudentSubmit">Tambah Siswa</button>
+              </form>
+            </article>
+            <article class="panel">
+              <div class="panel-head"><h3>Daftar Siswa Terdaftar</h3><span class="badge" id="adminStudentTotal">0 Siswa</span></div>
+              <div class="toolbar admin-search"><input id="adminSearchStudent" placeholder="Cari siswa yang sudah ditambahkan..." /></div>
+              <div class="table-card inner-table"><table><thead><tr><th>NISN</th><th>Nama</th><th>Kelas</th><th>Aksi</th></tr></thead><tbody id="adminStudentRows"></tbody></table></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="page-siswa" class="page">
+          <div class="section-head"><div><p class="eyebrow">Master Data</p><h2>Data Siswa</h2></div><button class="btn primary" data-open="studentModal">Tambah Siswa</button></div>
+          <div class="toolbar"><input id="searchStudent" placeholder="Cari nama, NISN, atau kelas..." /><select id="filterStudentClass"><option value="">Semua Kelas</option></select></div>
+          <div class="table-card"><table><thead><tr><th>NISN</th><th>Nama</th><th>Kelas</th><th>Jenis Kelamin</th><th>Alamat</th><th>Aksi</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+        </section>
+
+        <section id="page-guru" class="page">
+          <div class="section-head"><div><p class="eyebrow">Master Data</p><h2>Data Guru dan Pengguna</h2></div><button class="btn primary" data-open="teacherModal">Tambah Guru</button></div>
+          <div class="table-card"><table><thead><tr><th>ID</th><th>Nama</th><th>Username</th><th>Role</th><th>Kontak</th><th>Aksi</th></tr></thead><tbody id="teacherRows"></tbody></table></div>
+        </section>
+
+        <section id="page-kelas" class="page">
+          <div class="section-head"><div><p class="eyebrow">Master Data</p><h2>Data Kelas</h2></div><button class="btn primary" data-open="classModal">Tambah Kelas</button></div>
+          <div class="class-grid" id="classCards"></div>
+        </section>
+
+        <section id="page-absensi" class="page">
+          <div class="section-head"><div><p class="eyebrow">Input Kehadiran</p><h2>Input Absensi Siswa</h2></div><button class="btn primary" id="saveAttendance">Simpan Absensi</button></div>
+          <div class="toolbar attendance-tools"><input id="attendanceDate" type="date" /><select id="attendanceClass"></select><input id="attendanceSearch" placeholder="Cari siswa..." /></div>
+          <div class="stats-grid compact" id="attendanceStats"></div>
+          <div class="table-card"><table><thead><tr><th>NISN</th><th>Nama Siswa</th><th>Status</th><th>Keterangan</th></tr></thead><tbody id="attendanceRows"></tbody></table></div>
+        </section>
+
+        <section id="page-laporan" class="page">
+          <div class="section-head"><div><p class="eyebrow">Rekapitulasi</p><h2>Laporan Absensi</h2></div><div class="action-row"><button class="btn secondary" id="exportCsv">Export CSV</button><button class="btn primary" id="printReport">Cetak</button></div></div>
+          <div class="toolbar report-tools"><input id="reportStart" type="date" /><input id="reportEnd" type="date" /><select id="reportClass"><option value="">Semua Kelas</option></select><select id="reportType"><option value="summary">Ringkasan Kelas</option><option value="detail">Detail Siswa</option></select></div>
+          <div class="table-card"><table id="reportTable"><thead id="reportHead"></thead><tbody id="reportRows"></tbody></table></div>
+        </section>
+
+        <section id="page-pengaturan" class="page">
+          <div class="section-head"><div><p class="eyebrow">Konfigurasi</p><h2>Pengaturan Sistem</h2></div><button class="btn primary" id="saveSettings">Simpan Pengaturan</button></div>
+          <div class="settings-grid">
+            <article class="panel form-panel">
+              <h3>Profil Sekolah</h3>
+              <label>Nama Sekolah</label><input id="schoolName" />
+              <label>Tahun Ajaran</label><input id="schoolYear" />
+              <label>Semester</label><select id="semester"><option>Ganjil</option><option>Genap</option></select>
+            </article>
+            <article class="panel">
+              <h3>Hak Akses Sistem</h3>
+              <ul class="feature-list">
+                <li>Admin: data siswa, guru, kelas, absensi, laporan, pengaturan.</li>
+                <li>Guru/Wali Kelas: input absensi dan melihat rekap kelas.</li>
+                <li>Kepala Sekolah: melihat laporan keseluruhan.</li>
+                <li>Siswa/Orang Tua: memantau status kehadiran.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="modal" id="studentModal"><form id="studentForm" class="modal-card"><div class="modal-head"><h3>Form Data Siswa</h3><button type="button" data-close>×</button></div><input type="hidden" id="studentEdit" /><label>NISN</label><input id="studentNisn" required /><label>Nama Siswa</label><input id="studentName" required /><label>Kelas</label><select id="studentClass"></select><label>Jenis Kelamin</label><select id="studentGender"><option>Laki-laki</option><option>Perempuan</option></select><label>Alamat</label><textarea id="studentAddress" required></textarea><button class="btn primary full">Simpan Siswa</button></form></div>
+  <div class="modal" id="teacherModal"><form id="teacherForm" class="modal-card"><div class="modal-head"><h3>Form Data Guru</h3><button type="button" data-close>×</button></div><input type="hidden" id="teacherEdit" /><label>ID Guru</label><input id="teacherId" required /><label>Nama Guru</label><input id="teacherName" required /><label>Username</label><input id="teacherUsername" required /><label>Role</label><select id="teacherRole"><option>Admin</option><option>Guru/Wali Kelas</option><option>Kepala Sekolah</option></select><label>Kontak</label><input id="teacherContact" /><button class="btn primary full">Simpan Guru</button></form></div>
+  <div class="modal" id="classModal"><form id="classForm" class="modal-card"><div class="modal-head"><h3>Form Data Kelas</h3><button type="button" data-close>×</button></div><input type="hidden" id="classEdit" /><label>Nama Kelas</label><input id="className" required /><label>Wali Kelas</label><input id="classHomeroom" required /><label>Jurusan/Keterangan</label><input id="classMajor" required /><button class="btn primary full">Simpan Kelas</button></form></div>
+
+  <div id="toast" class="toast">Berhasil disimpan.</div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
